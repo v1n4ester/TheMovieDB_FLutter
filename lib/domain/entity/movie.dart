@@ -1,0 +1,47 @@
+// ignore_for_file: non_constant_identifier_names
+
+import 'package:json_annotation/json_annotation.dart';
+import 'package:movie_list/domain/entity/movie_data_parser.dart';
+
+part 'movie.g.dart';
+
+@JsonSerializable(fieldRename: FieldRename.snake) // буде автоматом переводити кемел кейси в снейк
+class Movie {
+  final String? posterPath;
+  final bool adult;
+  final String overview;
+  @JsonKey(fromJson: parseMovieDateFromString)// встановлюєм власний парсер замість автоматичного
+  final DateTime? releaseDate;
+  final List<int> genre_ids;
+  final int id;
+  final String originalTitle;
+  final String originalLanguage;
+  final String title;
+  final String? backdropPath;
+  final double popularity;
+  final int voteCount;
+  final bool video;
+  final double voteAverage;
+
+  Movie({
+    required this.posterPath,
+    required this.adult,
+    required this.overview,
+    required this.releaseDate,
+    required this.genre_ids,
+    required this.id,
+    required this.originalTitle,
+    required this.originalLanguage,
+    required this.title,
+    required this.backdropPath,
+    required this.popularity,
+    required this.voteCount,
+    required this.video,
+    required this.voteAverage,
+  });
+
+  factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
+
+  Map<String, dynamic> toJson() => _$MovieToJson(this);
+
+}
