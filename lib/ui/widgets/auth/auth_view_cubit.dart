@@ -4,6 +4,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:movie_list/domain/api_client/api_client_exception.dart';
 import 'package:movie_list/domain/blocs/auth_bloc.dart';
 
@@ -20,20 +21,14 @@ class AuthViewCubitFormFillInProgressState extends AuthViewCubitState {
   int get hashCode => 0;
 }
 
-class AuthViewCubitErrorState extends AuthViewCubitState {
+class AuthViewCubitErrorState extends AuthViewCubitState with EquatableMixin {
   final String errorMessage;
 
   AuthViewCubitErrorState(this.errorMessage);
-
+  
   @override
-  bool operator ==(covariant AuthViewCubitErrorState other) {
-    if (identical(this, other)) return true;
+  List<Object?> get props => [errorMessage];
 
-    return other.errorMessage == errorMessage;
-  }
-
-  @override
-  int get hashCode => errorMessage.hashCode;
 }
 
 class AuthViewCubitAuthProgressState extends AuthViewCubitState {

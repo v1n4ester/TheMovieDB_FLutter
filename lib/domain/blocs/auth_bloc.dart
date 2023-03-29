@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:equatable/equatable.dart';
 
 import 'package:movie_list/domain/api_client/account_api_client.dart';
 import 'package:movie_list/domain/api_client/auth_api_client.dart';
@@ -44,20 +45,14 @@ class AuthAuthorizedState extends AuthState {
   int get hashCode => 0;
 }
 
-class AuthFailureState extends AuthState {
+class AuthFailureState extends AuthState with EquatableMixin {
   final Object error;
 
   AuthFailureState(this.error);
-
+  
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is AuthFailureState &&
-          runtimeType == other.runtimeType &&
-          error == other.error;
+  List<Object?> get props => [error];
 
-  @override
-  int get hashCode => error.hashCode;
 }
 
 class AuthInProgressState extends AuthState {
@@ -97,7 +92,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     },
         transformer:
-            sequential()); // якщо я визву цей івент двічі, то метод буде гарантуваит послідовність а не паралельність
+            sequential()); // якщо я визву цей івент двічі, то метод буде гарантувати послідовність а не паралельність
     add(AuthCheckStatusEvent());
   }
 

@@ -65,16 +65,16 @@ class _MovieListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cuubit = context.watch<MovieListCubit>();
+    final cubit = context.watch<MovieListCubit>();
     return Padding(
       padding: const EdgeInsets.only(top: 70),
       child: ListView.builder(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior
             .onDrag, // вимикає клаву при скролі
-        itemCount: cuubit.state.movies.length,
+        itemCount: cubit.state.movies.length,
         itemExtent: 152, // можемо крнтролювати розмір
         itemBuilder: (BuildContext context, int index) {
-          cuubit.showMovieAtIndex(index);
+          cubit.showMovieAtIndex(index);
           return _MovieListRowWidget(index: index);
         },
       ),
